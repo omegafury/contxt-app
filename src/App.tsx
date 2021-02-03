@@ -1,20 +1,20 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import ContxtSdk from '@ndustrial/contxt-sdk';
+// import ContxtSdk from '@ndustrial/contxt-sdk';
 
-const contxtSdk = new ContxtSdk({
-  config: {
-    auth: {
-      clientId: 'nC2Tp9H45CBmBzX60eH3A3psGqE2K1KA'
-    }
-  },
-  sessionType: 'auth0WebAuth'
-});
+// const contxtSdk = new ContxtSdk({
+//   config: {
+//     auth: {
+//       clientId: 'nC2Tp9H45CBmBzX60eH3A3psGqE2K1KA'
+//     }
+//   },
+//   sessionType: 'auth0WebAuth'
+// });
 
-contxtSdk.facilities.getAll().then((facilities) => {
-  console.log(`all of my facilities: ${JSON.stringify(facilities)}`);
-});
+// contxtSdk.facilities.getAll().then((facilities) => {
+//   console.log(`all of my facilities: ${JSON.stringify(facilities)}`);
+// });
 
 function App() {
   return (
