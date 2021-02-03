@@ -88,5 +88,5 @@ jobs:
           password: ${{ secrets.QUAY_PASSWORD }}
       - name: Build Docker Image and Publish to Quay.io
         run: |
-          docker build --build-arg NPM_TOKEN=${{ secrets.NIO_NPM_TOKEN }} . -t quay.io/ndustrialio/${{ REPO_NAME }}:${{ github.sha }}
-          docker push quay.io/ndustrialio/${{ REPO_NAME }}:${{ github.sha }}
+          docker build --build-arg NPM_TOKEN=${{ secrets.NIO_NPM_TOKEN }} . -t quay.io/ndustrialio/${{ env.REPO_NAME }}:${{ github.sha }}
+          docker push quay.io/ndustrialio/${{ env.REPO_NAME }}:${{ github.sha }}
