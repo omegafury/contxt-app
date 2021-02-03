@@ -78,19 +78,15 @@ jobs:
         uses: bahmutov/npm-install@v1
         with:
           useLockFile: true
-
-      # If not deploying to Quay, just build locally. Remove this if using the Quay step.
-      - name: Build the app
-        run: yarn build
       
       # If deploying to Quay, login, build the docker image, and publish it to Quay
-      #- name: Docker Login
-      #  uses: azure/docker-login@v1
-      #  with:
-      #    login-server: quay.io
-      #    username: ${{ secrets.QUAY_USERNAME }}
-      #    password: ${{ secrets.QUAY_PASSWORD }}
-      #- name: Build Docker Image and Publish to Quay.io
-      #  run: |
-      #    docker build --build-arg NPM_TOKEN=${{ secrets.NIO_NPM_TOKEN }} . -t quay.io/ndustrialio/${{ REPO_NAME }}:${{ github.sha }}
-      #    docker push quay.io/ndustrialio/${{ REPO_NAME }}:${{ github.sha }}
+      - name: Docker Login
+        uses: azure/docker-login@v1
+        with:
+          login-server: quay.io
+          username: ${{ secrets.QUAY_USERNAME }}
+          password: ${{ secrets.QUAY_PASSWORD }}
+      - name: Build Docker Image and Publish to Quay.io
+        run: |
+          docker build --build-arg NPM_TOKEN=${{ secrets.NIO_NPM_TOKEN }} . -t quay.io/ndustrialio/${{ REPO_NAME }}:${{ github.sha }}
+          docker push quay.io/ndustrialio/${{ REPO_NAME }}:${{ github.sha }}
