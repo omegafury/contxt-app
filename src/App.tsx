@@ -6,7 +6,7 @@ import ContxtSdk from '@ndustrial/contxt-sdk';
 const contxtSdk = new ContxtSdk({
   config: {
     auth: {
-      clientId: 'nhKSWOgG2pvz57EkaX1IhmADxfia61wO'
+      clientId: 'nC2Tp9H45CBmBzX60eH3A3psGqE2K1KA'
     }
   },
   sessionType: 'auth0WebAuth'
