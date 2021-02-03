@@ -1,0 +1,96 @@
+name: CI
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+  #NPM_TOKEN: ${{ secrets.NIO_NPM_TOKEN }}
+  REPO_NAME: ${{ github.event.repository.name }}
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  lint:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+    
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+
+      - name: NPM or Yarn install with caching
+        # You may pin to the exact commit or the version.
+        # uses: bahmutov/npm-install@44b9e76df0949f3df6616b334af42e055ce24831
+        uses: bahmutov/npm-install@v1
+        with:
+          # Working directory to specify subfolder in which dependencies are defined
+          #working-directory: # optional
+          # Option to enable or disable use of a lock file (package-lock.json/yarn.lock)
+          useLockFile: true
+          # Custom install command to use
+          # install-command: 
+
+      # Runs a single command using the runners shell
+      - name: Check for linting problems
+        run: yarn eslint
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+    
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+
+      - name: NPM or Yarn install with caching
+        uses: bahmutov/npm-install@v1
+        with:
+          useLockFile: true
+
+      - name: Run unit tests
+        run: yarn test
+
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+    
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+
+      - name: NPM or Yarn install with caching
+        uses: bahmutov/npm-install@v1
+        with:
+          useLockFile: true
+
+      # If not deploying to Quay, just build locally. Remove this if using the Quay step.
+      - name: Build the app
+        run: yarn build
+      
+      # If deploying to Quay, login, build the docker image, and publish it to Quay
+      #- name: Docker Login
+      #  uses: azure/docker-login@v1
+      #  with:
+      #    login-server: quay.io
+      #    username: ${{ secrets.QUAY_USERNAME }}
+      #    password: ${{ secrets.QUAY_PASSWORD }}
+      #- name: Build Docker Image and Publish to Quay.io
+      #  run: |
+      #    docker build --build-arg NPM_TOKEN=${{ secrets.NIO_NPM_TOKEN }} . -t quay.io/ndustrialio/${{ REPO_NAME }}:${{ github.sha }}
+      #    docker push quay.io/ndustrialio/${{ REPO_NAME }}:${{ github.sha }}
