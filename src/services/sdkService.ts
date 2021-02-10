@@ -3,7 +3,7 @@ import ContxtSdk from "@ndustrial/contxt-sdk";
 const contxtSdk = new ContxtSdk({
   config: {
     auth: {
-      clientId: process.env.REACT_APP_CLIENT_ID as String,
+      clientId: "nC2Tp9H45CBmBzX60eH3A3psGqE2K1KA",
     },
   },
   sessionType: "auth0WebAuth",
