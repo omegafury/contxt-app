@@ -29,7 +29,7 @@ const DashboardHeader: React.FC = () => {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
-          Poe's Context App
+          Poe's Contxt App
         </Typography>
         <Button color="inherit" component={Link} to={"/logout"}>
           Logout
