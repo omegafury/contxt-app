@@ -46,23 +46,23 @@ jobs:
       - name: Check for linting problems
         run: yarn eslint
 
-  test:
-    runs-on: ubuntu-latest
+  # test:
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v2
+  #   steps:
+  #     - uses: actions/checkout@v2
 
-      - uses: actions/setup-node@v1
-        with:
-          node-version: "10.x"
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: "10.x"
 
-      - name: NPM or Yarn install with caching
-        uses: bahmutov/npm-install@v1
-        with:
-          useLockFile: true
+  #     - name: NPM or Yarn install with caching
+  #       uses: bahmutov/npm-install@v1
+  #       with:
+  #         useLockFile: true
 
-      - name: Run unit tests
-        run: yarn test
+  #     - name: Run unit tests
+  #       run: yarn test
 
   build_and_deploy:
     runs-on: ubuntu-latest
